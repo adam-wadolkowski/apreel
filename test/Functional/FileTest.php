@@ -31,6 +31,6 @@ final class FileTest extends TestCase
     {
         $this->expectException(FileNotExistException::class);
 
-        $result = $this->file->read('test');
+        $this->file->read('test');
     }
 }

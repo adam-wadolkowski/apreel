@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Tools\CheckFile\CheckFile;
+use App\Service\CheckFile\CheckFile;
 
 final class File
 {

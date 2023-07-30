@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Tools\CheckFile;
+namespace App\Service\CheckFile;
 
 use App\Exception\FileNotExistException;
 use Exception;
-use App\Tools\CheckFile\Interface\CheckFileInterface;
+use App\Service\CheckFile\Interface\CheckFileInterface;
 
 final class CheckFile implements CheckFileInterface
 {
     /**
      * @throws Exception
      */
-    public final function check(string $fileFullPath): void
+    public final function check(string $fileFullPath): bool
     {
         if (!$fileFullPath) {
             throw new Exception('File path or name not by empty.');
@@ -30,5 +30,7 @@ final class CheckFile implements CheckFileInterface
         if (!is_readable($fileFullPath)) {
             throw new Exception('File ins not readable.');
         }
+
+        return true;
     }
 }
