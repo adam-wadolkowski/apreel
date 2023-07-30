@@ -3,7 +3,7 @@
 namespace Test\Functional;
 
 use App\Exception\FileNotExistException;
-use App\File;
+use App\Service\File\File;
 use Exception;
 use PHPUnit\Framework\TestCase;
 

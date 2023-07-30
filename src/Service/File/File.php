@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Service\File;
 
 use App\Service\CheckFile\CheckFile;
+use Exception;
 
 final class File
 {
     private const RELATIVE_FILE_PATH = '/file/';
+    private const DIR_LEVEL_DOWN = 3;
     private CheckFile $checkFile;
     public function __construct()
     {
@@ -16,11 +18,11 @@ final class File
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function read(?string $fileName = 'test_short.txt'): bool
     {
-        $fileFullPath = dirname(__DIR__).self::RELATIVE_FILE_PATH.$fileName;
+        $fileFullPath = dirname(__DIR__, self::DIR_LEVEL_DOWN).self::RELATIVE_FILE_PATH.$fileName;
 
         $this->checkFile->check($fileFullPath);
 

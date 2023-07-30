@@ -20,7 +20,7 @@ final class CheckFile implements CheckFileInterface
         }
 
         if (!file_exists($fileFullPath)) {
-            throw new FileNotExistException();
+            throw new FileNotExistException($fileFullPath);
         }
 
         if (!is_file($fileFullPath)) {
