@@ -12,6 +12,7 @@ use Exception;
 final class ReadFile implements ReadFileInterface
 {
     private const RELATIVE_FILE_PATH = '/file/';
+    private const DEFAULT_FILE_NAME = 'test_short.txt';
     private const DIR_LEVEL_DOWN = 3;
     private CheckFile $checkFile;
     private ReplaceEndOfLine $replaceEndOfLine;
@@ -24,10 +25,9 @@ final class ReadFile implements ReadFileInterface
     /**
      * @throws Exception
      */
-    public function read(?string $fileName = 'test_short.txt'): bool
+    public function read(?string $fileName): bool
     {
-        $fileFullPath = dirname(__DIR__, self::DIR_LEVEL_DOWN).self::RELATIVE_FILE_PATH.$fileName;
-
+        $fileFullPath = $this->getFileFullPath($fileName);
         $this->checkFile->check($fileFullPath);
 
         $handle = fopen($fileFullPath, 'r');
@@ -41,5 +41,11 @@ final class ReadFile implements ReadFileInterface
             return true;
         }
         return false;
+    }
+
+    private function getFileFullPath(?string $fileName): string
+    {
+        $fileName = $fileName ?? self::DEFAULT_FILE_NAME;
+        return dirname(__DIR__, self::DIR_LEVEL_DOWN).self::RELATIVE_FILE_PATH.$fileName;
     }
 }

@@ -9,4 +9,4 @@ use App\Service\ReadFile\ReadFile;
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 $file = new ReadFile();
-$file->read();
+$file->read($argv[1] ?? null);
