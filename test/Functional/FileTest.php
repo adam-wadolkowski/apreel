@@ -20,7 +20,7 @@ final class FileTest extends TestCase
      */
     public function testValidReadExistFile(): void
     {
-        $result = $this->file->read();
+        $result = $this->file->read(null);
         $this->assertSame(true, $result);
     }
 
