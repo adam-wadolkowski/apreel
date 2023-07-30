@@ -27,6 +27,7 @@ final class File
         $handle = fopen($fileFullPath, 'r');
         if ($handle) {
             while (($line = fgets($handle)) !== false) {
+                $line = str_replace(['\r', '\n'], '\r\n', $line);
                 var_dump($line);
             }
             fclose($handle);
