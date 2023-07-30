@@ -3,16 +3,16 @@
 namespace Test\Functional;
 
 use App\Exception\FileNotExistException;
-use App\Service\File\File;
+use App\Service\ReadFile\ReadFile;
 use Exception;
 use PHPUnit\Framework\TestCase;
 
 final class FileTest extends TestCase
 {
-    private File $file;
+    private ReadFile $file;
     public function setUp(): void
     {
-        $this->file = new File();
+        $this->file = new ReadFile();
     }
 
     /**

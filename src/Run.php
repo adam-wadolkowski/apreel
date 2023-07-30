@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Service\File\File;
+use App\Service\ReadFile\ReadFile;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-$file = new File();
+$file = new ReadFile();
 $file->read();
