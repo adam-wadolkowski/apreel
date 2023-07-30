@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tools\CheckFile;
 
+use App\Exception\FileNotExistException;
 use Exception;
 use App\Tools\CheckFile\Interface\CheckFileInterface;
 
@@ -19,7 +20,7 @@ final class CheckFile implements CheckFileInterface
         }
 
         if (!file_exists($fileFullPath)) {
-            throw new Exception('File not exist.');
+            throw new FileNotExistException();
         }
 
         if (!is_file($fileFullPath)) {

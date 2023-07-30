@@ -18,7 +18,7 @@ final class File
     /**
      * @throws \Exception
      */
-    public function read(?string $fileName = 'test_short.txt'): void
+    public function read(?string $fileName = 'test_short.txt'): bool
     {
         $fileFullPath = dirname(__DIR__).self::RELATIVE_FILE_PATH.$fileName;
 
@@ -29,7 +29,10 @@ final class File
             while (($line = fgets($handle)) !== false) {
                 var_dump($line);
             }
-        fclose($handle);
+            fclose($handle);
+
+            return true;
         }
+        return false;
     }
 }
