@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\ReplaceFile\Interface;
+namespace App\Service\ReplaceEndOfLine\Interface;
 
 interface ReplaceEndOfLineInterface
 {

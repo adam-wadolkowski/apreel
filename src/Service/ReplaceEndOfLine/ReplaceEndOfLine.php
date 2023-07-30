@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service\ReplaceFile;
+namespace App\Service\ReplaceEndOfLine;
 
-use App\Service\ReplaceFile\Interface\ReplaceEndOfLineInterface;
+use App\Service\ReplaceEndOfLine\Interface\ReplaceEndOfLineInterface;
 
 class ReplaceEndOfLine implements ReplaceEndOfLineInterface
 {

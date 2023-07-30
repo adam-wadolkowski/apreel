@@ -6,7 +6,7 @@ namespace App\Service\ReadFile;
 
 use App\Service\CheckFile\CheckFile;
 use App\Service\ReadFile\Interface\ReadFileInterface;
-use App\Service\ReplaceFile\ReplaceEndOfLine;
+use App\Service\ReplaceEndOfLine\ReplaceEndOfLine;
 use Exception;
 
 final class ReadFile implements ReadFileInterface
@@ -16,6 +16,7 @@ final class ReadFile implements ReadFileInterface
     private const DIR_LEVEL_DOWN = 3;
     private CheckFile $checkFile;
     private ReplaceEndOfLine $replaceEndOfLine;
+
     public function __construct()
     {
         $this->checkFile = new CheckFile();
