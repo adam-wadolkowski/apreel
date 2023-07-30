@@ -7,6 +7,7 @@ namespace App\Service\ReadFile;
 use App\Service\CheckFile\CheckFile;
 use App\Service\ReadFile\Interface\ReadFileInterface;
 use App\Service\ReplaceEndOfLine\ReplaceEndOfLine;
+use App\Service\SaveFIle\SaveFile;
 use ClosedGeneratorException;
 use Exception;
 use Generator;
@@ -19,10 +20,13 @@ final class ReadFile implements ReadFileInterface
     private CheckFile $checkFile;
     private ReplaceEndOfLine $replaceEndOfLine;
 
+    private SaveFile $saveFile;
+
     public function __construct()
     {
         $this->checkFile = new CheckFile();
         $this->replaceEndOfLine = new ReplaceEndOfLine();
+        $this->saveFile = new SaveFile();
     }
 
     /**
@@ -37,7 +41,7 @@ final class ReadFile implements ReadFileInterface
         $handle = fopen($fileFullPath, 'r');
         if ($handle) {
             $lines = $this->getLines($handle);
-            $this->saveFile($this->getNewFileFullPath($fileName), $lines);
+            $this->saveFile->save($this->getNewFileFullPath($fileName), $lines);
             fclose($handle);
 
             return true;
@@ -65,14 +69,5 @@ final class ReadFile implements ReadFileInterface
     private function getFileName(?string $fileName): string
     {
         return $fileName ?? self::DEFAULT_FILE_NAME;
-    }
-
-    private function saveFile(string $fileName, Generator $body): void
-    {
-        $handle = fopen($fileName, 'w');
-            foreach ($body as $bod) {
-                fwrite($handle, $bod);
-            }
-        fclose($handle);
     }
 }
