@@ -7,28 +7,28 @@ namespace App\Service\ReadFile;
 use App\Service\CheckFile\CheckFile;
 use App\Service\GetFileFullPath\GetFileFullPath;
 use App\Service\ReadFile\Interface\ReadFileInterface;
-use App\Service\ReplaceEndOfLine\ReplaceEndOfLine;
-use App\Service\SaveFIle\SaveFile;
 use Exception;
-use Generator;
 
 final class ReadFile implements ReadFileInterface
 {
     private const DEFAULT_FILE_NAME = 'test_short.txt';
-    private const FILE_CHUNK_SIZE = (1<<24);
+    private const LARGE_FILE_SIZE = (1<<29);//0,5GB
 
     private CheckFile $checkFile;
-    private ReplaceEndOfLine $replaceEndOfLine;
 
-    private SaveFile $saveFile;
+    //private SaveFile $saveFile;
     private GetFileFullPath $getFileFullPath;
+
+    private ReadSmallFile $readSmallFile;
+
+    private ReadBigFIle $readBigFIle;
 
     public function __construct()
     {
         $this->checkFile = new CheckFile();
-        $this->replaceEndOfLine = new ReplaceEndOfLine();
-        $this->saveFile = new SaveFile();
         $this->getFileFullPath = new GetFileFullPath();
+        $this->readSmallFile = new ReadSmallFile();
+        $this->readBigFIle = new ReadBigFIle();
     }
 
     /**
@@ -40,22 +40,11 @@ final class ReadFile implements ReadFileInterface
         $fileFullPath = $this->getFileFullPath->getFileFullPath($fileName);
         $this->checkFile->check($fileFullPath);
 
-        $handle = fopen($fileFullPath, 'r');
-        if ($handle) {
-            $lines = $this->getLines($handle);
-            $this->saveFile->save($this->getFileFullPath->getNewFileFullPath($fileName), $lines);
-            fclose($handle);
-
-            return true;
+        if (filesize($fileFullPath) >= self::LARGE_FILE_SIZE) {
+            return $this->readBigFIle->read($fileFullPath);
         }
-        return false;
-    }
 
-    private function getLines($handle): Generator
-    {
-        while (($line = fgets($handle, self::FILE_CHUNK_SIZE)) !== false)  {
-            yield $this->replaceEndOfLine->replace($line);
-        }
+        return $this->readSmallFile->read($fileFullPath, );
     }
 
     private function getFileName(?string $fileName): string
