@@ -15,6 +15,7 @@ use Generator;
 final class ReadFile implements ReadFileInterface
 {
     private const DEFAULT_FILE_NAME = 'test_short.txt';
+    private const FILE_CHUNK_SIZE = (1<<24);
 
     private CheckFile $checkFile;
     private ReplaceEndOfLine $replaceEndOfLine;
@@ -52,7 +53,7 @@ final class ReadFile implements ReadFileInterface
 
     private function getLines($handle): Generator
     {
-        while (($line = fgets($handle)) !== false)  {
+        while (($line = fgets($handle, self::FILE_CHUNK_SIZE)) !== false)  {
             yield $this->replaceEndOfLine->replace($line);
         }
     }
